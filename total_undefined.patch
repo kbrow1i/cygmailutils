@@ -1,18 +1,55 @@
---- origsrc/mailutils-3.2/lib/Makefile.am	2017-03-19 10:37:26.155561700 -0400
-+++ src/mailutils-3.2/lib/Makefile.am	2017-03-19 10:26:45.918484200 -0400
-@@ -35,8 +35,8 @@ libmuaux_la_SOURCES = \
+--- origsrc/mailutils-3.2/imap4d/Makefile.am	2017-01-01 08:47:06.000000000 -0500
++++ src/mailutils-3.2/imap4d/Makefile.am	2017-03-19 13:20:08.092824700 -0400
+@@ -79,7 +79,9 @@ imap4d_LDADD = \
+  ${MU_LIB_AUTH}\
+  @MU_AUTHLIBS@ \
+  ${MU_LIB_MAILUTILS}\
+- @SERV_AUTHLIBS@ @MU_COMMON_LIBRARIES@ @MU_TCPWRAP_LIBRARIES@
++ @SERV_AUTHLIBS@ @MU_COMMON_LIBRARIES@ @MU_TCPWRAP_LIBRARIES@\
++ ../libmailutils/sockaddr/libsockaddr.la\
++ ../libmailutils/string/libstring.la
+ 
+ ## This kludge is necessary to correctly establish imap4d -> MU_AUTHLIBS
+ ## dependencies. Automake stupidly refuses to include them.
+--- origsrc/mailutils-3.2/lib/Makefile.am	2017-01-01 08:47:07.000000000 -0500
++++ src/mailutils-3.2/lib/Makefile.am	2017-03-19 13:23:34.930114300 -0400
+@@ -35,8 +35,32 @@ libmuaux_la_SOURCES = \
   strexit.c\
   mu_umaxtostr.c\
   mu_umaxtostr.h
 -libmuaux_la_LIBADD=gnu/libgnu.la
 -libmuaux_la_LDFLAGS = -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
-+libmuaux_la_LIBADD=gnu/libgnu.la ../libmailutils/mailbox/libmailbox.la ../libmailutils/string/libstring.la ../libmailutils/diag/libdiag.la ../libmailutils/base/libbase.la ../libmailutils/list/liblist.la ../libmailutils/stream/libstream.la ../libmailutils/url/liburl.la ../libmailutils/cfg/libcfg.la ../libmailutils/property/libproperty.la ../libmailutils/auth/libauth.la ../libmailutils/mime/libmime.la ../libmailutils/msgset/libmsgset.la ../libmailutils/imapio/libimapio.la ../libmailutils/address/libaddress.la ../libmailutils/datetime/libdatetime.la ../libmailutils/cidr/libcidr.la ../libmailutils/opt/libopt.la ../libmailutils/stdstream/libstdstream.la ../libmailutils/filter/libfilter.la ../libmailutils/sockaddr/libsockaddr.la -liconv
++
++libmuaux_la_LIBADD= \
++ gnu/libgnu.la\
++ ../libmailutils/mailbox/libmailbox.la\
++ ../libmailutils/string/libstring.la\
++ ../libmailutils/diag/libdiag.la\
++ ../libmailutils/base/libbase.la\
++ ../libmailutils/list/liblist.la\
++ ../libmailutils/stream/libstream.la\
++ ../libmailutils/url/liburl.la\
++ ../libmailutils/cfg/libcfg.la\
++ ../libmailutils/property/libproperty.la\
++ ../libmailutils/auth/libauth.la\
++ ../libmailutils/mime/libmime.la\
++ ../libmailutils/msgset/libmsgset.la\
++ ../libmailutils/imapio/libimapio.la\
++ ../libmailutils/address/libaddress.la\
++ ../libmailutils/datetime/libdatetime.la\
++ ../libmailutils/cidr/libcidr.la\
++ ../libmailutils/opt/libopt.la\
++ ../libmailutils/stdstream/libstdstream.la\
++ ../libmailutils/filter/libfilter.la\
++ ../libmailutils/sockaddr/libsockaddr.la\
++ -liconv
++
 +libmuaux_la_LDFLAGS = -no-undefined -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
  
  libmutcpwrap_a_SOURCES = tcpwrap.c
  
---- origsrc/mailutils-3.2/libmailutils/Makefile.am	2017-03-19 10:37:33.461303300 -0400
-+++ src/mailutils-3.2/libmailutils/Makefile.am	2017-03-18 21:23:27.962943500 -0400
+--- origsrc/mailutils-3.2/libmailutils/Makefile.am	2017-01-01 08:47:08.000000000 -0500
++++ src/mailutils-3.2/libmailutils/Makefile.am	2017-03-19 13:19:57.544601100 -0400
 @@ -51,5 +51,5 @@ libmailutils_la_LIBADD = \
   stdstream/libstdstream.la\
   url/liburl.la
@@ -20,8 +57,8 @@
 -libmailutils_la_LDFLAGS = -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
 +libmailutils_la_LDFLAGS = -no-undefined -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
  
---- origsrc/mailutils-3.2/libmu_auth/Makefile.am	2017-03-19 10:37:45.320400600 -0400
-+++ src/mailutils-3.2/libmu_auth/Makefile.am	2017-03-18 21:23:27.968058800 -0400
+--- origsrc/mailutils-3.2/libmu_auth/Makefile.am	2017-01-01 08:47:11.000000000 -0500
++++ src/mailutils-3.2/libmu_auth/Makefile.am	2017-03-19 13:19:57.548604300 -0400
 @@ -33,5 +33,5 @@ libmu_auth_la_SOURCES = \
   virtual.c 
  
@@ -29,8 +66,8 @@
 -libmu_auth_la_LDFLAGS = -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
 +libmu_auth_la_LDFLAGS = -no-undefined -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
  libmu_auth_la_DEPENDENCIES = @SQLLIB_DEPENDENCY@ 
---- origsrc/mailutils-3.2/libmu_cpp/Makefile.am	2017-03-19 10:38:05.419432900 -0400
-+++ src/mailutils-3.2/libmu_cpp/Makefile.am	2017-03-18 21:23:27.973561500 -0400
+--- origsrc/mailutils-3.2/libmu_cpp/Makefile.am	2017-01-01 08:47:11.000000000 -0500
++++ src/mailutils-3.2/libmu_cpp/Makefile.am	2017-03-19 13:19:57.554116600 -0400
 @@ -43,5 +43,5 @@ libmu_cpp_la_SOURCES = \
   url.cc
  
@@ -38,8 +75,8 @@
 -libmu_cpp_la_LDFLAGS = -rpath $(libdir)  -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
 +libmu_cpp_la_LDFLAGS = -no-undefined -rpath $(libdir)  -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
  
---- origsrc/mailutils-3.2/libmu_dbm/Makefile.am	2017-03-19 10:38:15.758038800 -0400
-+++ src/mailutils-3.2/libmu_dbm/Makefile.am	2017-03-18 21:23:27.980067000 -0400
+--- origsrc/mailutils-3.2/libmu_dbm/Makefile.am	2017-01-01 08:47:11.000000000 -0500
++++ src/mailutils-3.2/libmu_dbm/Makefile.am	2017-03-19 13:19:57.557617400 -0400
 @@ -43,5 +43,5 @@ libmu_dbm_la_SOURCES = \
  noinst_HEADERS = mudbm.h
  
@@ -47,8 +84,8 @@
 -libmu_dbm_la_LDFLAGS = -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
 +libmu_dbm_la_LDFLAGS = -no-undefined -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
  libmu_dbm_la_DEPENDENCIES = @DBMLIB_DEPENDENCY@ 
---- origsrc/mailutils-3.2/libmu_scm/Makefile.am	2017-03-19 10:38:27.922695300 -0400
-+++ src/mailutils-3.2/libmu_scm/Makefile.am	2017-03-18 21:23:27.986573200 -0400
+--- origsrc/mailutils-3.2/libmu_scm/Makefile.am	2017-01-01 08:47:11.000000000 -0500
++++ src/mailutils-3.2/libmu_scm/Makefile.am	2017-03-19 13:19:57.563125900 -0400
 @@ -39,7 +39,7 @@ libmu_scm_la_SOURCES=\
   $(C_SRCS) \
   mu_scm.h
@@ -58,8 +95,8 @@
  libmu_scm_la_LIBADD = \
   ${MU_LIB_MBOX}\
   ${MU_LIB_IMAP}\
---- origsrc/mailutils-3.2/libmu_sieve/Makefile.am	2017-03-19 10:38:51.072585000 -0400
-+++ src/mailutils-3.2/libmu_sieve/Makefile.am	2017-03-18 21:23:27.991078800 -0400
+--- origsrc/mailutils-3.2/libmu_sieve/Makefile.am	2017-01-01 08:47:11.000000000 -0500
++++ src/mailutils-3.2/libmu_sieve/Makefile.am	2017-03-19 13:19:57.568632000 -0400
 @@ -48,7 +48,7 @@ libmu_sieve_la_SOURCES = \
   util.c\
   variables.c
@@ -69,8 +106,8 @@
  
  noinst_HEADERS = sieve-priv.h
  
---- origsrc/mailutils-3.2/libproto/imap/Makefile.am	2017-03-19 10:39:02.150484000 -0400
-+++ src/mailutils-3.2/libproto/imap/Makefile.am	2017-03-18 21:23:27.995082400 -0400
+--- origsrc/mailutils-3.2/libproto/imap/Makefile.am	2017-01-01 08:47:11.000000000 -0500
++++ src/mailutils-3.2/libproto/imap/Makefile.am	2017-03-19 13:19:57.572636700 -0400
 @@ -18,7 +18,7 @@
  AM_CPPFLAGS = @MU_LIB_COMMON_INCLUDES@ 
  
@@ -80,8 +117,8 @@
  libmu_imap_la_LIBADD = ${MU_LIB_AUTH} ${MU_LIB_MAILUTILS} @INTLLIBS@ 
  
  SUBDIRS = . tests
---- origsrc/mailutils-3.2/libproto/maildir/Makefile.am	2017-03-19 10:39:10.952424400 -0400
-+++ src/mailutils-3.2/libproto/maildir/Makefile.am	2017-03-18 21:23:27.998607500 -0400
+--- origsrc/mailutils-3.2/libproto/maildir/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/libproto/maildir/Makefile.am	2017-03-19 13:19:57.576638800 -0400
 @@ -18,7 +18,7 @@
  AM_CPPFLAGS = @MU_LIB_COMMON_INCLUDES@ 
  
@@ -91,8 +128,8 @@
  libmu_maildir_la_LIBADD = ${MU_LIB_MAILUTILS}
  libmu_maildir_la_SOURCES = \
   folder.c \
---- origsrc/mailutils-3.2/libproto/mailer/Makefile.am	2017-03-19 10:39:20.117846100 -0400
-+++ src/mailutils-3.2/libproto/mailer/Makefile.am	2017-03-18 21:23:28.003110400 -0400
+--- origsrc/mailutils-3.2/libproto/mailer/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/libproto/mailer/Makefile.am	2017-03-19 13:19:57.579656500 -0400
 @@ -17,7 +17,7 @@
  AM_CPPFLAGS = @MU_LIB_COMMON_INCLUDES@
  
@@ -102,8 +139,8 @@
  libmu_mailer_la_LIBADD = ${MU_LIB_AUTH} ${MU_LIB_MAILUTILS} @INTLLIBS@
  
  if MU_COND_GSASL
---- origsrc/mailutils-3.2/libproto/mbox/Makefile.am	2017-03-19 10:39:51.981914400 -0400
-+++ src/mailutils-3.2/libproto/mbox/Makefile.am	2017-03-18 21:23:28.007092900 -0400
+--- origsrc/mailutils-3.2/libproto/mbox/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/libproto/mbox/Makefile.am	2017-03-19 13:19:57.583657000 -0400
 @@ -18,7 +18,7 @@
  AM_CPPFLAGS = @MU_LIB_COMMON_INCLUDES@ 
  
@@ -113,8 +150,8 @@
  libmu_mbox_la_LIBADD = ${MU_LIB_MAILUTILS}
  libmu_mbox_la_SOURCES = \
   folder.c\
---- origsrc/mailutils-3.2/libproto/mh/Makefile.am	2017-03-19 10:39:59.621524200 -0400
-+++ src/mailutils-3.2/libproto/mh/Makefile.am	2017-03-18 21:23:28.011595800 -0400
+--- origsrc/mailutils-3.2/libproto/mh/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/libproto/mh/Makefile.am	2017-03-19 13:19:57.588650000 -0400
 @@ -18,7 +18,7 @@
  AM_CPPFLAGS = @MU_LIB_COMMON_INCLUDES@
  
@@ -124,8 +161,8 @@
  libmu_mh_la_LIBADD = ${MU_LIB_MAILUTILS}
  libmu_mh_la_SOURCES = \
   folder.c\
---- origsrc/mailutils-3.2/libproto/nntp/Makefile.am	2017-03-19 10:40:08.432172100 -0400
-+++ src/mailutils-3.2/libproto/nntp/Makefile.am	2017-03-18 21:23:28.016599900 -0400
+--- origsrc/mailutils-3.2/libproto/nntp/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/libproto/nntp/Makefile.am	2017-03-19 13:19:57.594655400 -0400
 @@ -18,7 +18,7 @@
  AM_CPPFLAGS = @MU_LIB_COMMON_INCLUDES@
  
@@ -135,8 +172,8 @@
  libmu_nntp_la_LIBADD = ${MU_LIB_MAILUTILS}
  libmu_nntp_la_SOURCES = \
   nntp_article.c \
---- origsrc/mailutils-3.2/libproto/pop/Makefile.am	2017-03-19 10:40:22.226869400 -0400
-+++ src/mailutils-3.2/libproto/pop/Makefile.am	2017-03-18 21:23:28.020106500 -0400
+--- origsrc/mailutils-3.2/libproto/pop/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/libproto/pop/Makefile.am	2017-03-19 13:19:57.600660100 -0400
 @@ -18,7 +18,7 @@
  AM_CPPFLAGS = @MU_LIB_COMMON_INCLUDES@
  
@@ -146,8 +183,32 @@
  libmu_pop_la_LIBADD = ${MU_LIB_AUTH} ${MU_LIB_MAILUTILS} @INTLLIBS@
  
  libmu_pop_la_SOURCES = \
---- origsrc/mailutils-3.2/python/libmu_py/Makefile.am	2017-03-19 10:40:31.403202100 -0400
-+++ src/mailutils-3.2/python/libmu_py/Makefile.am	2017-03-18 21:23:28.024108600 -0400
+--- origsrc/mailutils-3.2/maidag/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/maidag/Makefile.am	2017-03-19 13:20:08.096830600 -0400
+@@ -53,7 +53,8 @@ maidag_LDADD = \
+  @GUILE_LIBS@\
+  @PYTHON_LIBS@\
+  @DBMLIBS@\
+- @MU_TCPWRAP_LIBRARIES@
++ @MU_TCPWRAP_LIBRARIES@\
++ ../libmailutils/sockaddr/libsockaddr.la
+ 
+ AM_CPPFLAGS = -I${top_srcdir} @MU_APP_COMMON_INCLUDES@ @GUILE_INCLUDES@ \
+  @PYTHON_INCLUDES@
+--- origsrc/mailutils-3.2/pop3d/Makefile.am	2017-01-01 08:47:14.000000000 -0500
++++ src/mailutils-3.2/pop3d/Makefile.am	2017-03-19 13:20:08.100831600 -0400
+@@ -61,7 +61,8 @@ pop3d_LDADD = \
+  @MU_COMMON_LIBRARIES@\
+  ${LIBMU_DBM}\
+  @DBMLIBS@\
+- @MU_TCPWRAP_LIBRARIES@
++ @MU_TCPWRAP_LIBRARIES@\
++ ../libmailutils/sockaddr/libsockaddr.la
+ 
+ popauth_SOURCES = popauth.c
+ popauth_LDADD = \
+--- origsrc/mailutils-3.2/python/libmu_py/Makefile.am	2017-01-01 08:47:14.000000000 -0500
++++ src/mailutils-3.2/python/libmu_py/Makefile.am	2017-03-19 13:19:57.603662800 -0400
 @@ -44,7 +44,7 @@ libmu_py_la_SOURCES = \
   registrar.c \
   url.c \
