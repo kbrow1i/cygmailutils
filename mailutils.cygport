@@ -26,6 +26,8 @@ human-readable mapping description (a simple text file)."
 SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
 
 # PATCH_URI="no_undefined.patch"
-PATCH_URI="ordered_undefined.patch"
+PATCH_URI="undefined.patch"
+PATCH_URI+=" lber.patch"
 
-CYGCONF_ARGS="--without-ldap --without-dbm"
+# CYGCONF_ARGS="--without-ldap --without-imap4d --without-dbm"
+CYGCONF_ARGS=" --without-dbm"
