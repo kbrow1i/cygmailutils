@@ -1,0 +1,13 @@
+--- origsrc/mailutils-3.2/imap4d/Makefile.am	2017-01-01 08:47:06.000000000 -0500
++++ src/mailutils-3.2/imap4d/Makefile.am	2017-03-19 13:20:08.092824700 -0400
+@@ -79,7 +79,9 @@ imap4d_LDADD = \
+  ${MU_LIB_AUTH}\
+  @MU_AUTHLIBS@ \
+  ${MU_LIB_MAILUTILS}\
+- @SERV_AUTHLIBS@ @MU_COMMON_LIBRARIES@ @MU_TCPWRAP_LIBRARIES@
++ @SERV_AUTHLIBS@ @MU_COMMON_LIBRARIES@ @MU_TCPWRAP_LIBRARIES@\
++ ../libmailutils/sockaddr/libsockaddr.la\
++ ../libmailutils/string/libstring.la
+ 
+ ## This kludge is necessary to correctly establish imap4d -> MU_AUTHLIBS
+ ## dependencies. Automake stupidly refuses to include them.

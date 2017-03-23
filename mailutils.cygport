@@ -27,6 +27,10 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
 
 PATCH_URI="no_undefined.patch"
 PATCH_URI+=" lber.patch"
+PATCH_URI+=" libaux_libadd.patch"
+PATCH_URI+=" pop3d_ldadd.patch"
+PATCH_URI+=" imap4d_ldadd.patch"
+PATCH_URI+=" maidag_ldadd.patch"
 
 # CYGCONF_ARGS="--without-ldap --without-imap4d --without-dbm"
 # CYGCONF_ARGS=" --without-dbm"
