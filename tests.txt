@@ -1,0 +1,14 @@
+x86
+===
+
+libmailutils: 0/586  failures
+frm:	      0/10   failures
+imap4d:	      19/92  failures
+maidag:	      3/5    failures, 1 skipped
+mail:	      0/9    failures
+sieve:	      20/96  failures
+messages:     0/4    failures
+comsat:	      0/7    failures
+mh:	      0/169  failures, 2 skipped
+
+Total:	      42/978 failures, 3 skipped

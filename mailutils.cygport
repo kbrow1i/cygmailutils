@@ -2,26 +2,72 @@ NAME="mailutils"
 VERSION=3.2
 RELEASE=1
 
-HOMEPAGE="http://scripts.sil.org/teckit"
-SUMMARY="A Text Encoding Conversion toolkit"
-DESCRIPTION="TECkit is a low-level toolkit intended to be used by other
-applications that need to perform encoding conversions (e.g., when
-importing legacy data into a Unicode-based application).  The primary
-component of the TECkit package is therefore a library that performs
-conversions; this is the TECkit engine.  The engine relies on
-mapping tables in a specific binary format (for which documentation is
-available); there is a compiler that creates such tables from a
-human-readable mapping description (a simple text file)."
+HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
+SUMMARY="A rich and powerful protocol-independent mail framework"
+DESCRIPTION="GNU Mailutils is a rich and powerful protocol-independent mail
+framework.  It contains a series of useful mail libraries, clients,
+and servers.  These are the primary mail utilities for the GNU system.
+The central library is capable of handling electronic mail in various
+mailbox formats and protocols, both local and remote.  Specifically,
+this project contains a POP3 server, an IMAP4 server, and a Sieve mail
+filter.  It also provides a POSIX mailx client, and a collection of
+other handy tools."
 
-# PKG_NAMES="${PN} lib${PN}0 lib${PN}-devel"
+PKG_NAMES="${PN}
+ lib${PN}5
+ lib${PN}-devel
+ ${PN}-comsatd
+ ${PN}-imap4d
+ ${PN}-mh
+ ${PN}-pop3d
+"
 
-# teckit_CATEGORY="Text"
-# libteckit0_CATEGORY="Text Libs"
-# libteckit_devel_CATEGORY="Text Devel"
+mailutils_CATEGORY="Mail"
+libmailutils5_CATEGORY="Mail Libs"
+libmailutils_devel_CATEGORY="Mail Devel"
+mailutils_comsatd_CATEGORY="Mail"
+mailutils_imap4d_CATEGORY="Mail"
+mailutils_mh_CATEGORY="Mail"
+mailutils_pop3d_CATEGORY="Mail"
 
-# teckit_CONTENTS="usr/bin/*.exe usr/share"
-# libteckit0_CONTENTS="usr/bin/cygTECkit-0.dll usr/bin/cygTECkit_Compiler-0.dll"
-# libteckit_devel_CONTENTS="usr/include usr/lib"
+mailutils_CONTENTS="
+  --exclude=usr/bin/popauth.exe
+  usr/bin/*.exe
+  usr/sbin/maidag.exe
+  usr/share/doc
+  usr/share/emacs
+  usr/share/info
+  usr/share/locale
+  usr/share/man/man1/mail.1.gz"
+
+libmailutils5_CONTENTS="
+  --exclude=usr/bin/
+  usr/bin/cyg*-5.dll
+  usr/lib/mailutils/*.dll"
+
+libmailutils_devel_CONTENTS="
+  --exclude=usr/lib/mailutils
+  usr/bin/mailutils-config
+  usr/lib
+  usr/include
+  usr/share/aclocal"
+
+mailutils_comsatd_CONTENTS="usr/sbin/comsatd.exe"
+
+mailutils_doc_CONTENTS=""
+
+mailutils_imap4d_CONTENTS="
+  usr/sbin/imap4d.exe
+  usr/share/man/man1/imap4d.1.gz"
+
+mailutils_mh_CONTENTS="
+  usr/bin/mu-mh
+  usr/share/mailutils/mh"
+
+mailutils_pop3d_CONTENTS="
+  usr/bin/popauth.exe
+  usr/sbin/pop3d.exe
+  usr/share/man/man1/pop*"
 
 SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
 
@@ -32,5 +78,589 @@ PATCH_URI+=" pop3d_ldadd.patch"
 PATCH_URI+=" imap4d_ldadd.patch"
 PATCH_URI+=" maidag_ldadd.patch"
 
-# CYGCONF_ARGS="--without-ldap --without-imap4d --without-dbm"
-# CYGCONF_ARGS=" --without-dbm"
+CYGCONF_ARGS=" --without-guile"
+
+# Debian packaging:
+
+# mailutils
+#   /usr/bin/dotlock.mailutils
+#   /usr/bin/frm.mailutils
+#   /usr/bin/from.mailutils
+#   /usr/bin/mail.mailutils
+#   /usr/bin/messages.mailutils
+#   /usr/bin/mimeview
+#   /usr/bin/movemail.mailutils
+#   /usr/bin/mu-tool
+#   /usr/bin/readmsg.mailutils
+#   /usr/bin/sieve
+#   /usr/sbin/maidag
+#   /usr/share/doc/mailutils/AUTHORS
+#   /usr/share/doc/mailutils/NEWS.gz
+#   /usr/share/doc/mailutils/README.Debian
+#   /usr/share/doc/mailutils/README.gz
+#   /usr/share/doc/mailutils/THANKS
+#   /usr/share/doc/mailutils/TODO
+#   /usr/share/doc/mailutils/TODO.Debian
+#   /usr/share/doc/mailutils/changelog.Debian.gz
+#   /usr/share/doc/mailutils/changelog.gz
+#   /usr/share/doc/mailutils/copyright
+#   /usr/share/doc/mailutils/examples/mail.rc
+#   /usr/share/lintian/overrides/mailutils
+#   /usr/share/man/man1/dotlock.mailutils.1.gz
+#   /usr/share/man/man1/frm.mailutils.1.gz
+#   /usr/share/man/man1/from.mailutils.1.gz
+#   /usr/share/man/man1/mail.mailutils.1.gz
+#   /usr/share/man/man1/messages.mailutils.1.gz
+#   /usr/share/man/man1/mimeview.1.gz
+#   /usr/share/man/man1/movemail.mailutils.1.gz
+#   /usr/share/man/man1/mu-tool.1.gz
+#   /usr/share/man/man1/readmsg.mailutils.1.gz
+#   /usr/share/man/man1/sieve.1.gz
+#   /usr/share/man/man8/maidag.8.gz
+
+# libmailutils4
+#   usr/lib/x86_64-linux-gnu/libmailutils.so.4
+#   /usr/lib/x86_64-linux-gnu/libmailutils.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_auth.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_auth.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_cfg.so.0
+#   /usr/lib/x86_64-linux-gnu/libmu_cfg.so.0.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_compat.so.0
+#   /usr/lib/x86_64-linux-gnu/libmu_compat.so.0.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_dbm.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_dbm.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_imap.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_imap.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_maildir.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_maildir.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_mailer.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_mailer.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_mbox.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_mbox.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_mh.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_mh.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_pop.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_pop.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_py.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_py.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_scm.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_scm.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/libmu_sieve.so.4
+#   /usr/lib/x86_64-linux-gnu/libmu_sieve.so.4.0.0
+#   /usr/lib/x86_64-linux-gnu/mailutils/editheader.so
+#   /usr/lib/x86_64-linux-gnu/mailutils/list.so
+#   /usr/lib/x86_64-linux-gnu/mailutils/moderator.so
+#   /usr/lib/x86_64-linux-gnu/mailutils/numaddr.so
+#   /usr/lib/x86_64-linux-gnu/mailutils/pipe.so
+#   /usr/lib/x86_64-linux-gnu/mailutils/spamd.so
+#   /usr/lib/x86_64-linux-gnu/mailutils/timestamp.so
+#   /usr/lib/x86_64-linux-gnu/mailutils/vacation.so
+#   /usr/share/doc/libmailutils4/AUTHORS
+#   /usr/share/doc/libmailutils4/NEWS.gz
+#   /usr/share/doc/libmailutils4/README.Debian
+#   /usr/share/doc/libmailutils4/README.gz
+#   /usr/share/doc/libmailutils4/THANKS
+#   /usr/share/doc/libmailutils4/TODO
+#   /usr/share/doc/libmailutils4/changelog.Debian.gz
+#   /usr/share/doc/libmailutils4/changelog.gz
+#   /usr/share/doc/libmailutils4/copyright  
+
+# mailutils-common
+#   usr/share/doc/mailutils-common/AUTHORS
+#   /usr/share/doc/mailutils-common/NEWS.gz
+#   /usr/share/doc/mailutils-common/README.gz
+#   /usr/share/doc/mailutils-common/THANKS
+#   /usr/share/doc/mailutils-common/TODO
+#   /usr/share/doc/mailutils-common/changelog.Debian.gz
+#   /usr/share/doc/mailutils-common/changelog.gz
+#   /usr/share/doc/mailutils-common/copyright
+#   /usr/share/locale/ca/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/es/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/fi/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/fr/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/id/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/pl/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/ro/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/ru/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/sv/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/uk/LC_MESSAGES/mailutils.mo
+#   /usr/share/locale/vi/LC_MESSAGES/mailutils.mo
+
+# mailutils-doc
+#   /usr/share/doc-base/mailutils-manual
+#   /usr/share/doc/mailutils-doc/AUTHORS
+#   /usr/share/doc/mailutils-doc/NEWS.gz
+#   /usr/share/doc/mailutils-doc/README.gz
+#   /usr/share/doc/mailutils-doc/THANKS
+#   /usr/share/doc/mailutils-doc/TODO
+#   /usr/share/doc/mailutils-doc/changelog.Debian.gz
+#   /usr/share/doc/mailutils-doc/changelog.gz
+#   /usr/share/doc/mailutils-doc/copyright
+#   /usr/share/doc/mailutils-doc/mailutils.html/ACL-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Acknowledgement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Actions-Described.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Actions.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Add-Records-to-a-Database.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Adding-a-File-to-the-Message.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Aliasing.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Auth-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Authors-of-get_005fdate.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Auto_002dexpire.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Book-Contents.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Built_002din-Actions.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Built_002din-Tests.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Bulletins.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Calendar-date-items.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Changing-mailbox_002fdirectory.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Charset-variable.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Command-Line-Option-Summary.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Command-line-options.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Commands.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Comments.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Common-Options.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Comparators.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Composing-Mail.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Concept-Index.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Conf_002dimap4d.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Conf_002dmaidag.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Conf_002dpop3d.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Conf_002dreadmsg.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Configuring-comsatd.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Control-Flow.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Controlling-Header-Display.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Controlling-Sender-Fields.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Create-a-Database.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/DBM-Quotas.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Date-Input-Formats.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Day-of-week-items.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Dbm-Exit-Codes.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Debug-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Debugging-Categories.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Delete-Records.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Diffs.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Displaying-Information.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Displaying-Messages.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Disposing-of-Messages.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Dump-Formats.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Dump-the-Database.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Editing-Messages.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Editing-the-Message.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Enclosing-Another-Message.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Executing-Other-Mail-Commands.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Executing-Shell-Commands.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Exim_002dmaidag.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Extending-Sieve.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/External-Actions.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/External-Tests.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Format-String-Diffs.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Forwarding.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Function-Index.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/GNU-Extensions.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/GNU-FDL.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/GSASL-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/General-Server-Configuration.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/General-Settings.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/General-date-syntax.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Getting-Help-on-Compose-Escapes.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/History.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Include.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Incorporating-New-Mail.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Inserting-Value-of-a-Mail-Variable.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Introduction.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Invoking-Mail.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Invoking-Sieve.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Keyword-Index.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/LDAP-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Level-BNF.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Level-Syntax.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Lexical-Structure.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Libraries.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/List-the-Database.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Locking-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Logging-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Logging-and-Debugging.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Login-delay.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Maidag-Scripting.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Mail-Configuration-Files.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Mail-Variables.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Mailbox-Quotas.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Mailbox-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Mailer-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Marking-Messages.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/MeTA1_002dmaidag.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Mimeview-Config.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Mimeview-Invocation.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Modifying-the-Headers.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Movemail-Configuration.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Movemail-Options.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Moving-Within-a-Mailbox.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Namespace.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/News.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Obtaining-Online-Help.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Opt_002dreadmsg.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Option-Basics.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Ownership.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/PAM-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Passing-Options-to-Scheme.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Paths.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Preprocessor.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Printing-And-Saving-the-Message.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Printing-Another-Message.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Profile-Variable-Diffs.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Program-Diffs.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Program-Index.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Programs.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Pure-numbers-in-date-strings.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Python-Maidag-Filters.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Quitting-Compose-Mode.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Quitting-the-Program.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Radius-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Reading-Mail.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/References.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Relative-items-in-date-strings.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Remote-Mailbox-Delivery.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Reply_002dRegex-variable.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Replying.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Reporting-Bugs.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Require-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/SQL-Quotas.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/SQL-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Saving-Messages.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Scheme-Maidag-Filters.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Scripting.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Seconds-since-the-Epoch.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Security-Settings.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Sendmail_002dmaidag.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Server-Settings.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Server-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Setting-and-Unsetting-the-Variables.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Shell-Escapes.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Sieve-Configuration.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Sieve-Language.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Sieve-Maidag-Filters.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Signing-the-Message.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Specifying-Mailboxes-to-Operate-Upon.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Specifying-Messages.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Specifying-Scheme-Program-to-Execute.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Specifying-time-zone-rules.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Starting-comsatd.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Starting-imap4d.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Statements.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Summary.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Syntax.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/TLS-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Tcp_002dwrappers-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Tests-and-Conditions.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Tests.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Time-of-day-items.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Time-zone-items.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Url_002dmode.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Usage-Vars.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Variable-Index.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/Virtdomain-Statement.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/_0023include.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/_0023searchpath.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/backslash_002dinterpretation.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/boolean-value.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/byname.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/command-line.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/comsatd.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/conf_002dsyntax.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/configuration.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/datefield.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/debugging.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/decode-function.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/dot_002ebiffrc.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/dump-version-0_002e0.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/dump-version-1_002e0.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/fileinto.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/frm-and-from.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/fromfield.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/guimb.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/here_002ddocument.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/imap4d.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/index.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/isreply-MH-function.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/list-values.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/maidag.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mail.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mailbox_002downership_002dmethods.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/messages.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mh.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mimeview.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/movemail.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-2047.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-acl.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-cflags.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-dbm.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-filter.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-help.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-imap.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-info.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-invocation-syntax.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-ldflags.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-logger.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-pop.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-query.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu-wicket.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/mu.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/pop3d.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/readmsg.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/reply_005fregex-function.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/return_002daddress.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/server-mode.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/sieve-interpreter.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/sieve.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/sieve_002escm.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/syslog-facility.html
+#   /usr/share/doc/mailutils-doc/mailutils.html/weedlist-option.html
+#   /usr/share/info/mailutils.info-1.gz
+#   /usr/share/info/mailutils.info-2.gz
+#   /usr/share/info/mailutils.info.gz
+
+# mailutils-mh
+#   /etc/emacs/site-start.d/50mailutils-mh.el
+#   /usr/bin/mu-mh/ali
+#   /usr/bin/mu-mh/anno
+#   /usr/bin/mu-mh/burst
+#   /usr/bin/mu-mh/comp
+#   /usr/bin/mu-mh/fmtcheck
+#   /usr/bin/mu-mh/folder
+#   /usr/bin/mu-mh/folders
+#   /usr/bin/mu-mh/forw
+#   /usr/bin/mu-mh/inc
+#   /usr/bin/mu-mh/install-mh
+#   /usr/bin/mu-mh/mark
+#   /usr/bin/mu-mh/mhl
+#   /usr/bin/mu-mh/mhn
+#   /usr/bin/mu-mh/mhparam
+#   /usr/bin/mu-mh/mhpath
+#   /usr/bin/mu-mh/mhseq
+#   /usr/bin/mu-mh/pick
+#   /usr/bin/mu-mh/prompter
+#   /usr/bin/mu-mh/refile
+#   /usr/bin/mu-mh/repl
+#   /usr/bin/mu-mh/rmf
+#   /usr/bin/mu-mh/rmm
+#   /usr/bin/mu-mh/scan
+#   /usr/bin/mu-mh/send
+#   /usr/bin/mu-mh/sortm
+#   /usr/bin/mu-mh/whatnow
+#   /usr/bin/mu-mh/whom
+#   /usr/share/doc/mailutils-mh/AUTHORS
+#   /usr/share/doc/mailutils-mh/NEWS.gz
+#   /usr/share/doc/mailutils-mh/README.gz
+#   /usr/share/doc/mailutils-mh/THANKS
+#   /usr/share/doc/mailutils-mh/TODO
+#   /usr/share/doc/mailutils-mh/changelog.Debian.gz
+#   /usr/share/doc/mailutils-mh/changelog.gz
+#   /usr/share/doc/mailutils-mh/copyright
+#   /usr/share/lintian/overrides/mailutils-mh
+#   /usr/share/mailutils/mh/components
+#   /usr/share/mailutils/mh/forwcomps
+#   /usr/share/mailutils/mh/mailutils-mh.el
+#   /usr/share/mailutils/mh/mhl.format
+#   /usr/share/mailutils/mh/mhl.forward
+#   /usr/share/mailutils/mh/mhl.headers
+#   /usr/share/mailutils/mh/mhl.repl
+#   /usr/share/mailutils/mh/mhl.usenet
+#   /usr/share/mailutils/mh/replcomps
+#   /usr/share/mailutils/mh/replgroupcomps
+#   /usr/share/mailutils/mh/scan.default
+#   /usr/share/mailutils/mh/scan.mailx
+#   /usr/share/mailutils/mh/scan.size
+#   /usr/share/mailutils/mh/scan.time
+#   /usr/share/mailutils/mh/scan.timely
+
+# mailutils-imap4d
+#   /usr/sbin/imap4d
+#   /usr/share/doc/mailutils-imap4d/AUTHORS
+#   /usr/share/doc/mailutils-imap4d/NEWS.gz
+#   /usr/share/doc/mailutils-imap4d/README.gz
+#   /usr/share/doc/mailutils-imap4d/THANKS
+#   /usr/share/doc/mailutils-imap4d/TODO
+#   /usr/share/doc/mailutils-imap4d/changelog.Debian.gz
+#   /usr/share/doc/mailutils-imap4d/changelog.gz
+#   /usr/share/doc/mailutils-imap4d/copyright
+#   /usr/share/doc/mailutils-imap4d/examples/gnu-imap4d.pam
+#   /usr/share/man/man8/imap4d.8.gz
+
+# mailutils-pop3d
+#   /usr/bin/popauth
+#   /usr/sbin/pop3d
+#   /usr/share/doc/mailutils-pop3d/AUTHORS
+#   /usr/share/doc/mailutils-pop3d/NEWS.gz
+#   /usr/share/doc/mailutils-pop3d/README.gz
+#   /usr/share/doc/mailutils-pop3d/THANKS
+#   /usr/share/doc/mailutils-pop3d/TODO
+#   /usr/share/doc/mailutils-pop3d/changelog.Debian.gz
+#   /usr/share/doc/mailutils-pop3d/changelog.gz
+#   /usr/share/doc/mailutils-pop3d/copyright
+#   /usr/share/doc/mailutils-pop3d/examples/gnu-pop3d.pam
+#   /usr/share/man/man1/popauth.1.gz
+#   /usr/share/man/man8/pop3d.8.gz
+
+# libmailutils-dev
+#   /usr/bin/mailutils-config
+#   /usr/include/mailutils/acl.h
+#   /usr/include/mailutils/address.h
+#   /usr/include/mailutils/alloc.h
+#   /usr/include/mailutils/argcv.h
+#   /usr/include/mailutils/assoc.h
+#   /usr/include/mailutils/attribute.h
+#   /usr/include/mailutils/auth.h
+#   /usr/include/mailutils/body.h
+#   /usr/include/mailutils/cctype.h
+#   /usr/include/mailutils/cfg.h
+#   /usr/include/mailutils/cidr.h
+#   /usr/include/mailutils/cstr.h
+#   /usr/include/mailutils/daemon.h
+#   /usr/include/mailutils/datetime.h
+#   /usr/include/mailutils/dbm.h
+#   /usr/include/mailutils/debug.h
+#   /usr/include/mailutils/diag.h
+#   /usr/include/mailutils/envelope.h
+#   /usr/include/mailutils/errno.h
+#   /usr/include/mailutils/error.h
+#   /usr/include/mailutils/filter.h
+#   /usr/include/mailutils/folder.h
+#   /usr/include/mailutils/gocs.h
+#   /usr/include/mailutils/gsasl.h
+#   /usr/include/mailutils/guile.h
+#   /usr/include/mailutils/header.h
+#   /usr/include/mailutils/imap.h
+#   /usr/include/mailutils/imapio.h
+#   /usr/include/mailutils/imaputil.h
+#   /usr/include/mailutils/io.h
+#   /usr/include/mailutils/iterator.h
+#   /usr/include/mailutils/kwd.h
+#   /usr/include/mailutils/ldap.h
+#   /usr/include/mailutils/libargp.h
+#   /usr/include/mailutils/libcfg.h
+#   /usr/include/mailutils/list.h
+#   /usr/include/mailutils/locker.h
+#   /usr/include/mailutils/log.h
+#   /usr/include/mailutils/mailbox.h
+#   /usr/include/mailutils/mailcap.h
+#   /usr/include/mailutils/mailer.h
+#   /usr/include/mailutils/mailutils.h
+#   /usr/include/mailutils/md5.h
+#   /usr/include/mailutils/message.h
+#   /usr/include/mailutils/mh.h
+#   /usr/include/mailutils/mime.h
+#   /usr/include/mailutils/monitor.h
+#   /usr/include/mailutils/msgset.h
+#   /usr/include/mailutils/mu_auth.h
+#   /usr/include/mailutils/nls.h
+#   /usr/include/mailutils/nntp.h
+#   /usr/include/mailutils/observer.h
+#   /usr/include/mailutils/opool.h
+#   /usr/include/mailutils/pam.h
+#   /usr/include/mailutils/parse822.h
+#   /usr/include/mailutils/pop3.h
+#   /usr/include/mailutils/prog.h
+#   /usr/include/mailutils/progmailer.h
+#   /usr/include/mailutils/property.h
+#   /usr/include/mailutils/python.h
+#   /usr/include/mailutils/radius.h
+#   /usr/include/mailutils/refcount.h
+#   /usr/include/mailutils/registrar.h
+#   /usr/include/mailutils/secret.h
+#   /usr/include/mailutils/server.h
+#   /usr/include/mailutils/sha1.h
+#   /usr/include/mailutils/sieve.h
+#   /usr/include/mailutils/smtp.h
+#   /usr/include/mailutils/sockaddr.h
+#   /usr/include/mailutils/sql.h
+#   /usr/include/mailutils/stdstream.h
+#   /usr/include/mailutils/stream.h
+#   /usr/include/mailutils/sys/amd.h
+#   /usr/include/mailutils/sys/attribute.h
+#   /usr/include/mailutils/sys/auth.h
+#   /usr/include/mailutils/sys/body.h
+#   /usr/include/mailutils/sys/dbm.h
+#   /usr/include/mailutils/sys/debcat.h
+#   /usr/include/mailutils/sys/envelope.h
+#   /usr/include/mailutils/sys/file_stream.h
+#   /usr/include/mailutils/sys/filter.h
+#   /usr/include/mailutils/sys/folder.h
+#   /usr/include/mailutils/sys/gsasl-stream.h
+#   /usr/include/mailutils/sys/header.h
+#   /usr/include/mailutils/sys/header_stream.h
+#   /usr/include/mailutils/sys/imap.h
+#   /usr/include/mailutils/sys/imapio.h
+#   /usr/include/mailutils/sys/iostream.h
+#   /usr/include/mailutils/sys/iterator.h
+#   /usr/include/mailutils/sys/list.h
+#   /usr/include/mailutils/sys/logstream.h
+#   /usr/include/mailutils/sys/mailbox.h
+#   /usr/include/mailutils/sys/mailer.h
+#   /usr/include/mailutils/sys/mapfile_stream.h
+#   /usr/include/mailutils/sys/memory_stream.h
+#   /usr/include/mailutils/sys/message.h
+#   /usr/include/mailutils/sys/message_stream.h
+#   /usr/include/mailutils/sys/mime.h
+#   /usr/include/mailutils/sys/monitor.h
+#   /usr/include/mailutils/sys/msgset.h
+#   /usr/include/mailutils/sys/nntp.h
+#   /usr/include/mailutils/sys/nullstream.h
+#   /usr/include/mailutils/sys/observer.h
+#   /usr/include/mailutils/sys/pop3.h
+#   /usr/include/mailutils/sys/prog_stream.h
+#   /usr/include/mailutils/sys/property.h
+#   /usr/include/mailutils/sys/rdcache_stream.h
+#   /usr/include/mailutils/sys/registrar.h
+#   /usr/include/mailutils/sys/smtp.h
+#   /usr/include/mailutils/sys/stream.h
+#   /usr/include/mailutils/sys/streamref.h
+#   /usr/include/mailutils/sys/streamtrans.h
+#   /usr/include/mailutils/sys/syslogstream.h
+#   /usr/include/mailutils/sys/temp_file_stream.h
+#   /usr/include/mailutils/sys/tls-stream.h
+#   /usr/include/mailutils/sys/url.h
+#   /usr/include/mailutils/sys/xscript-stream.h
+#   /usr/include/mailutils/syslog.h
+#   /usr/include/mailutils/tls.h
+#   /usr/include/mailutils/types.h
+#   /usr/include/mailutils/url.h
+#   /usr/include/mailutils/util.h
+#   /usr/include/mailutils/vartab.h
+#   /usr/include/mailutils/version.h
+#   /usr/include/mailutils/wordsplit.h
+#   /usr/lib/x86_64-linux-gnu/libguile-mailutils-v-2.99.98.so
+#   /usr/lib/x86_64-linux-gnu/libmailutils.so
+#   /usr/lib/x86_64-linux-gnu/libmu_auth.so
+#   /usr/lib/x86_64-linux-gnu/libmu_cfg.so
+#   /usr/lib/x86_64-linux-gnu/libmu_compat.so
+#   /usr/lib/x86_64-linux-gnu/libmu_dbm.so
+#   /usr/lib/x86_64-linux-gnu/libmu_imap.so
+#   /usr/lib/x86_64-linux-gnu/libmu_maildir.so
+#   /usr/lib/x86_64-linux-gnu/libmu_mailer.so
+#   /usr/lib/x86_64-linux-gnu/libmu_mbox.so
+#   /usr/lib/x86_64-linux-gnu/libmu_mh.so
+#   /usr/lib/x86_64-linux-gnu/libmu_pop.so
+#   /usr/lib/x86_64-linux-gnu/libmu_py.so
+#   /usr/lib/x86_64-linux-gnu/libmu_scm.so
+#   /usr/lib/x86_64-linux-gnu/libmu_sieve.so
+#   /usr/share/aclocal/mailutils.m4
+#   /usr/share/doc/libmailutils-dev/AUTHORS
+#   /usr/share/doc/libmailutils-dev/NEWS.gz
+#   /usr/share/doc/libmailutils-dev/README.gz
+#   /usr/share/doc/libmailutils-dev/THANKS
+#   /usr/share/doc/libmailutils-dev/TODO
+#   /usr/share/doc/libmailutils-dev/changelog.Debian.gz
+#   /usr/share/doc/libmailutils-dev/changelog.gz
+#   /usr/share/doc/libmailutils-dev/copyright
+
+# mailutils-comstatd
+#   /usr/sbin/comsatd
+#   /usr/share/doc/mailutils-comsatd/AUTHORS
+#   /usr/share/doc/mailutils-comsatd/NEWS.gz
+#   /usr/share/doc/mailutils-comsatd/README.gz
+#   /usr/share/doc/mailutils-comsatd/THANKS
+#   /usr/share/doc/mailutils-comsatd/TODO
+#   /usr/share/doc/mailutils-comsatd/changelog.Debian.gz
+#   /usr/share/doc/mailutils-comsatd/changelog.gz
+#   /usr/share/doc/mailutils-comsatd/copyright
+#   /usr/share/doc/mailutils-comsatd/examples/dot.biffrc
+#   /usr/share/man/man8/comsatd.8.gz
