@@ -1,0 +1,29 @@
+From 646c88a4c1cbfc83f8e2c242fd61f1520c180ee7 Mon Sep 17 00:00:00 2001
+From: Ken Brown <kbrown@cornell.edu>
+Date: Sun, 26 Mar 2017 12:29:23 -0400
+Subject: [PATCH 2/3] Add library needed for linking on Cygwin
+
+* configure.ac (MU_AUTHLIBS): Add -llber if that's where the ber_*
+functions are found.
+---
+ configure.ac | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 938269b..985ba0e 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -998,6 +998,10 @@ if test $status_ldap = maybe; then
+    [status_ldap=no])
+ fi
+ 
++if test $status_ldap = yes; then
++  AC_CHECK_LIB(lber, ber_set_option, MU_AUTHLIBS="$MU_AUTHLIBS -llber")
++fi
++
+ 
+ # Virtual domain support
+ MU_ENABLE_SUPPORT(virtual-domains)
+-- 
+2.8.3
+

@@ -1,13 +1,0 @@
---- origsrc/mailutils-3.2/configure.ac	2017-03-11 03:53:35.000000000 -0500
-+++ src/mailutils-3.2/configure.ac	2017-03-22 15:41:51.238877400 -0400
-@@ -997,6 +997,10 @@ if test $status_ldap = maybe; then
-    [status_ldap=no])
- fi
- 
-+if test $status_ldap = yes; then
-+  AC_CHECK_LIB(lber, ber_set_option, MU_AUTHLIBS="$MU_AUTHLIBS -llber")
-+fi
-+
- 
- # Virtual domain support
- MU_ENABLE_SUPPORT(virtual-domains)
