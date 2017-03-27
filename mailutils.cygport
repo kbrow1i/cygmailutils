@@ -2,40 +2,46 @@ NAME="mailutils"
 VERSION=3.2
 RELEASE=1
 
+SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
+
+PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
+PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
+PATCH_URI+=" 0003-Fix-undefined-symbols-errors-on-Cygwin.patch"
+PATCH_URI+=" 3.2-missing_tests.patch"
+
 HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
 SUMMARY="A rich and powerful protocol-independent mail framework"
 DESCRIPTION="GNU Mailutils is a rich and powerful protocol-independent mail
 framework.  It contains a series of useful mail libraries, clients,
 and servers.  These are the primary mail utilities for the GNU system.
 The central library is capable of handling electronic mail in various
-mailbox formats and protocols, both local and remote.  Specifically,
-this project contains a POP3 server, an IMAP4 server, and a Sieve mail
-filter.  It also provides a POSIX mailx client, and a collection of
-other handy tools."
+mailbox formats and protocols, both local and remote."
 
 PKG_NAMES="${PN}
  lib${PN}5
  lib${PN}-devel
- ${PN}-comsatd
  ${PN}-mh
+ ${PN}-comsatd
+ ${PN}-imap4d
+ ${PN}-pop3d
 "
- # ${PN}-imap4d
- # ${PN}-pop3d
 
 mailutils_CATEGORY="Mail"
 libmailutils5_CATEGORY="Mail Libs"
 libmailutils_devel_CATEGORY="Mail Devel"
-mailutils_comsatd_CATEGORY="Mail"
 mailutils_mh_CATEGORY="Mail"
+mailutils_comsatd_CATEGORY="Mail"
+mailutils_imap4d_CATEGORY="Mail"
+mailutils_pop3d_CATEGORY="Mail"
 
-# mailutils_imap4d_CATEGORY="Mail"
-# mailutils_pop3d_CATEGORY="Mail"
 
 mailutils_CONTENTS="
   --exclude=usr/share/aclocal
   --exclude=usr/share/mailutils/mh
+  --exclude=usr/bin/popauth.exe
   usr/bin/*.exe
   usr/share
+  usr/sbin/maidag.exe
 "
 libmailutils5_CONTENTS="
   usr/bin/cyg*-5.dll
@@ -49,39 +55,21 @@ libmailutils_devel_CONTENTS="
   usr/include
   usr/share/aclocal"
 
-mailutils_comsatd_CONTENTS="usr/sbin/comsatd.exe"
-
 mailutils_mh_CONTENTS="
   usr/bin/mu-mh
   usr/share/mailutils/mh"
 
-# mailutils_imap4d_CONTENTS="
-#   usr/sbin/imap4d.exe
-#   usr/share/man/man1/imap4d.1.gz"
+mailutils_comsatd_CONTENTS="usr/sbin/comsatd.exe"
 
-# mailutils_pop3d_CONTENTS="
-#   usr/bin/popauth.exe
-#   usr/sbin/pop3d.exe
-#   usr/share/man/man1/pop*"
+mailutils_imap4d_CONTENTS="usr/sbin/imap4d.exe"
 
-SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
+mailutils_pop3d_CONTENTS="
+  usr/bin/popauth.exe
+  usr/sbin/pop3d.exe"
 
-PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
-PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
-PATCH_URI+=" 0003-Fix-undefined-symbols-errors-on-Cygwin.patch"
+CYGCONF_ARGS="--without-guile"
 
-# Disabling builds that had test failures.  Not using guile because of
-# build problem.  Not using dbm and ldap to minimize requirements for
-# mailutils.
-CYGCONF_ARGS="
-  --disable-build-pop3d
-  --disable-build-imap4d
-  --disable-build-sieve
-  --disable-build-maidag
-  --without-dbm
-  --without-guile
-  --without-ldap
-"
+DIFF_EXCLUDES="testsuite"
 
 # Debian packaging:
 
