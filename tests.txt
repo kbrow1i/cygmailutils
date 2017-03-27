@@ -12,3 +12,15 @@ comsat:	      0/7    failures
 mh:	      0/169  failures, 2 skipped
 
 Total:	      42/978 failures, 3 skipped
+
+After cutting down build:
+
+libmailutils: 586 successful
+testsuite(?):  17 successful
+frm:	       10 successful
+mail:	        9 successful
+messages:       4 successful
+comsat	        7 successful
+my	      169 successful, 2 skipped
+
+Total: 802 successful, 2 skipped
