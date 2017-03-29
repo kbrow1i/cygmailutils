@@ -74,6 +74,23 @@ CYGCONF_ARGS="--without-guile"
 
 DIFF_EXCLUDES="testsuite"
 
+DEPEND="
+    bison
+    flex
+    libcrypt-devel
+    libdb-devel
+    libgnutls-devel
+    libncurses-devel
+    libreadline-devel
+    openldap-devel
+"
+
+src_test() {
+    cd ${B}
+    cp -r ${S}/pop3d/testsuite/pop* pop3d/testsuite
+    cygtest
+}
+
 # Debian packaging:
 
 # mailutils
