@@ -1,26 +1,9 @@
 #!/bin/sh
 rm -f /usr/lib/libgnutls.la
 
-set -e
-
-echo fetching...
-cygport mailutils.cygport fetch
-
-echo prepping...
-cygport mailutils.cygport prep
-
-echo compiling...
-cygport mailutils.cygport compile
-
-echo installing...
-cygport mailutils.cygport inst
-
-echo packaging...
-cygport mailutils.cygport pkg
-
-set +e
-
-echo testing...
-cygport mailutils.cygport test
+if cygport mailutils.cygport fetch prep compile
+then
+    cygport mailutils.cygport test inst pkg
+fi
 
 tar -cJf artifact.tar.xz mailutils-*/dist mailutils-*/log
