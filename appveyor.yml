@@ -11,10 +11,8 @@ install:
 - if "%BUILD%"=="i686-pc-cygwin" set SETUP=setup-x86.exe && set CYGWIN_ROOT=C:\cygwin
 - if not exist %CACHE% mkdir %CACHE%
 - appveyor DownloadFile http://cygwin.com/%SETUP% -FileName %CACHE%\%SETUP%
-- echo Updating Cygwin
-- '%CACHE%\%SETUP% -qnNdO -R "%CYGWIN_ROOT%" -s "%CYGWIN_MIRROR%" -l "%CACHE%"'
-- echo Installing build dependencies
-- '%CACHE%\%SETUP% -qnNdO -R "%CYGWIN_ROOT%" -s "%CYGWIN_MIRROR%" -l "%CACHE%" -P "cygport,libgnutls-devel,libncurses-devel,bison,flex,libcrypt-devel,libdb-devel,openldap-devel,libreadline-devel"'
+- echo Updating Cygwin and installing build dependencies
+- '%CACHE%\%SETUP% -gqnNdO -R "%CYGWIN_ROOT%" -s "%CYGWIN_MIRROR%" -l "%CACHE%" -P "cygport,libgnutls-devel,libncurses-devel,bison,flex,libcrypt-devel,libdb-devel,openldap-devel,libreadline-devel"'
 - echo Install done
 cache:
 - C:\cache
