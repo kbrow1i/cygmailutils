@@ -78,7 +78,7 @@ DEPEND="
     bison
     flex
     libcrypt-devel
-    libdb-devel
+    libgdbm-devel
     libgnutls-devel
     libncurses-devel
     libreadline-devel
