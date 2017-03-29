@@ -76,6 +76,7 @@ DIFF_EXCLUDES="testsuite"
 
 DEPEND="
     bison
+    dejagnu
     flex
     libcrypt-devel
     libgdbm-devel
