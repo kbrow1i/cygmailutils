@@ -8,6 +8,7 @@ SRC_URI+=" 3.2-missing_tests.patch"
 PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
 PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
 PATCH_URI+=" 0003-Fix-undefined-symbols-errors-on-Cygwin.patch"
+PATCH_URI+=" 3.2-missing_tests.patch"
 
 HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
 SUMMARY="A rich and powerful protocol-independent mail framework"
@@ -39,13 +40,15 @@ mailutils_pop3d_CATEGORY="Mail"
 
 
 mailutils_CONTENTS="
-  --exclude=usr/share/aclocal
-  --exclude=usr/share/mailutils/mh
   --exclude=usr/bin/popauth.exe
   usr/bin/*.exe
-  usr/share
+  usr/share/doc
+  usr/share/info
+  usr/share/locale
+  usr/share/man/man1/mail.1.gz  
   usr/sbin/maidag.exe
 "
+
 libmailutils5_CONTENTS="
   usr/bin/cyg*-5.dll
   usr/lib/mailutils/*.dll
@@ -60,15 +63,22 @@ libmailutils_devel_CONTENTS="
 
 mailutils_mh_CONTENTS="
   usr/bin/mu-mh
+  usr/share/emacs
   usr/share/mailutils/mh"
 
 mailutils_comsatd_CONTENTS="usr/sbin/comsatd.exe"
 
-mailutils_imap4d_CONTENTS="usr/sbin/imap4d.exe"
+mailutils_imap4d_CONTENTS="
+  usr/sbin/imap4d.exe
+  usr/share/man/man1/imap4d.1.gz
+"
 
 mailutils_pop3d_CONTENTS="
   usr/bin/popauth.exe
-  usr/sbin/pop3d.exe"
+  usr/sbin/pop3d.exe
+  usr/share/man/man1/pop3d.1.gz
+  usr/share/man/man1/popauth.1.gz
+"
 
 CYGCONF_ARGS="--without-guile"
 
@@ -91,6 +101,10 @@ src_test() {
     patch -p2 < 3.2-missing_tests.patch
     cd ${B}
     cp -r ${S}/pop3d/testsuite/pop* pop3d/testsuite
+    # if [ "${ARCH}" = i686 ]
+    # then
+    # 	find . -name '*.dll' | rebase -OT -
+    # fi
     cygtest
 }
 
