@@ -1,4 +1,6 @@
 #!/bin/sh
+rm -f /usr/lib/libgnutls.la
+
 set -e
 
 echo fetching...
@@ -15,6 +17,8 @@ cygport mailutils.cygport inst
 
 echo packaging...
 cygport mailutils.cygport pkg
+
+set +e
 
 echo testing...
 cygport mailutils.cygport test
