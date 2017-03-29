@@ -3,11 +3,11 @@ VERSION=3.2
 RELEASE=1
 
 SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
+SRC_URI+=" 3.2-missing_tests.patch"
 
 PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
 PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
 PATCH_URI+=" 0003-Fix-undefined-symbols-errors-on-Cygwin.patch"
-PATCH_URI+=" 3.2-missing_tests.patch"
 
 HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
 SUMMARY="A rich and powerful protocol-independent mail framework"
@@ -87,6 +87,8 @@ DEPEND="
 "
 
 src_test() {
+    cd ${S}
+    patch -p2 < 3.2-missing_tests.patch
     cd ${B}
     cp -r ${S}/pop3d/testsuite/pop* pop3d/testsuite
     cygtest
