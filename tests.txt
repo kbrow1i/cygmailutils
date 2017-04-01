@@ -1,26 +1,26 @@
 x86
 ===
 
-libmailutils: 0/586  failures
-frm:	      0/10   failures
-imap4d:	      19/92  failures
-maidag:	      3/5    failures, 1 skipped
-mail:	      0/9    failures
-sieve:	      20/96  failures
-messages:     0/4    failures
-comsat:	      0/7    failures
-mh:	      0/169  failures, 2 skipped
+libmailutils/tests: 586/ 586 successful
+toplevel:	     17/  17 successful
+frm/tests:	     10/  10 successful
+pop3d:		    112/ 112 successful
+imap4d/tests:	     73/  92 successful
+maidag/tests:	      1/   5 successful, 1 skipped
+mail:		     73/  94 successful, 1 unresolved [for many, mail timed out
+		     	                waiting for prompt]
+mail/tests:           9/   9 successful
+sieve/tests:	     76/  96 successful
+messages/tests:	      4/   4 successful
+comsat/tests:	      7/   7 successful
+readmsg/tests: 	      6/   6 successful
+mh/tests:	    169/ 171 successful, 2 skipped
 
-Total:	      42/978 failures, 3 skipped
+Total:	           1143/1209 successful, 3 skipped, 1 unresolved
 
-After cutting down build:
+x86_64
+======
 
-libmailutils: 586 successful
-testsuite(?):  17 successful
-frm:	       10 successful
-mail:	        9 successful
-messages:       4 successful
-comsat	        7 successful
-my	      169 successful, 2 skipped
+Same except passed all mail tests.
 
-Total: 802 successful, 2 skipped
+Total:             1164/1209 successful, 3 skipped
