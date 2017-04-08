@@ -90,6 +90,7 @@ DIFF_EXCLUDES="testsuite *.at"
 DEPEND="
     bison
     dejagnu
+    emacs
     flex
     libcrypt-devel
     libgdbm-devel
