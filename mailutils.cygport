@@ -106,7 +106,7 @@ src_test() {
     patch -p2 < 3.2-missing_tests.patch
     cd ${B}
     cp -r ${S}/pop3d/testsuite/pop* pop3d/testsuite
-    make -k check || true
+    make -k check
 }
 
 # Debian packaging:
