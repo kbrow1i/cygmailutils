@@ -63,7 +63,7 @@ libmailutils_devel_CONTENTS="
   usr/share/aclocal"
 
 mailutils_mh_CONTENTS="
-  usr/bin/mu-mh
+  usr/libexec/mu-mh
   usr/share/emacs
   usr/share/mailutils/mh"
 
@@ -83,7 +83,7 @@ mailutils_pop3d_CONTENTS="
 
 libmailutils5_REQUIRES=libmailutils-sieve-extensions
 
-CYGCONF_ARGS="--without-guile"
+CYGCONF_ARGS="--without-guile --with-mh-bindir=/usr/libexec/mu-mh"
 
 DIFF_EXCLUDES="testsuite *.at"
 
