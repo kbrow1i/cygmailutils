@@ -5,22 +5,44 @@ libmailutils/tests: 586/ 586 successful
 toplevel:	     17/  17 successful
 frm/tests:	     10/  10 successful
 pop3d:		    112/ 112 successful
-imap4d/tests:	     73/  92 successful
+imap4d/tests:	     92/  92 successful
 maidag/tests:	      1/   5 successful, 1 skipped
-mail:		     73/  94 successful, 1 unresolved [for many, mail timed out
-		     	                waiting for prompt]
+mail:		     74/  94 successful, 1 unresolved
 mail/tests:           9/   9 successful
-sieve/tests:	     76/  96 successful
+sieve/tests:	     95/  96 successful
 messages/tests:	      4/   4 successful
 comsat/tests:	      7/   7 successful
 readmsg/tests: 	      6/   6 successful
 mh/tests:	    169/ 171 successful, 2 skipped
 
-Total:	           1143/1209 successful, 3 skipped, 1 unresolved
+Total:	           1182/1209 successful, 3 skipped, 1 unresolved
 
 x86_64
 ======
 
 Same except passed all mail tests.
 
-Total:             1164/1209 successful, 3 skipped
+Total:             1202/1209 successful, 3 skipped
+
+[Only 4 failures out of 1206 that were run.]
+
+Reason for failed mail tests on x86: Some of the tests in folder.exp
+rely on the "current mailbox", which is the value of the environment
+variable MBOX.  If this isn't set, it defaults to ~/mbox.  It's
+supposed to be set by the line
+
+  set env(MBOX) "$MU_SPOOL_DIR/mbox"
+
+in mail/testsuite/lib/mail.exp, but for some reason this doesn't work
+on x86.  If I export
+
+  MBOX=/home/kbrown/src/cygmailutils/mailutils-3.2-2.i686/build/mail/testsuite/data/spool/mbox
+
+before running the tests, then the ones in folder.exp pass.  I still
+get failures in read.exp and z.exp that I haven't tracked down, but
+I'll bet it's something similar.
+
+Reason for maidag failures: No root user.  I don't know if maidag is
+usable.
+
+Reason for sieve failure: Illegal filename character?

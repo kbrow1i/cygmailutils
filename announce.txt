@@ -1,22 +1,19 @@
-From cygwin-announce-mailutils-3.2-2 Fri Apr 21 11:45:06 2017
+From cygwin-announce-mailutils-3.2-3 Thu Apr 27 08:44:40 2017
 From: Ken Brown <kbrown@cornell.edu>
 To: cygwin-announce@cygwin.com
-Date: Fri, 21 Apr 2017 11:45:06 -0400
-Subject: New: mailutils 3.2-2
+Date: Thu, 27 Apr 2017 08:44:40 -0400
+Subject: mailutils 3.2-3
 
-The following packages have been added to the Cygwin distribution:
+The following packages have been uploaded to the Cygwin distribution:
 
-* mailutils-3.2-2
-* libmailutils5-3.2-2
-* libmailutils-sieve-extensions-3.2-2
-* libmailutils-devel-3.2-2
-* mailutils-mh-3.2-2
-* mailutils-comsatd-3.2-2
-* mailutils-imap4d-3.2-2
-* mailutils-pop3d-3.2-2
-
-[There is also a 3.2-1 release, but I found a minor glitch and had to
-rebuild.]
+* mailutils-3.2-3
+* libmailutils5-3.2-3
+* libmailutils-sieve-extensions-3.2-3
+* libmailutils-devel-3.2-3
+* mailutils-mh-3.2-3
+* mailutils-comsatd-3.2-3
+* mailutils-imap4d-3.2-3
+* mailutils-pop3d-3.2-3
 
 GNU Mailutils is a rich and powerful protocol-independent mail
 framework.  It contains a series of useful mail libraries, clients,
@@ -24,8 +21,11 @@ and servers.  These are the primary mail utilities for the GNU system.
 The central library is capable of handling electronic mail in various
 mailbox formats and protocols, both local and remote.  Specifically,
 this project contains a POP3 server, an IMAP4 server, and a Sieve mail
-filter. It also provides a POSIX mailx client, and a collection of
+filter.  It also provides a POSIX mailx client, and a collection of
 other handy tools.
+
+This release fixes build errors that could cause some of the programs
+to fail.  All but 4 of the 1200 tests in the test suite now pass.
 
 These packages contain two things of possible use to Emacs users:
 
