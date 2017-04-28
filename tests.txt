@@ -46,3 +46,5 @@ Reason for maidag failures: No root user.  I don't know if maidag is
 usable.
 
 Reason for sieve failure: Illegal filename character?
+
+As of 2017-04-28 I've added a patch to skip the four failing tests.

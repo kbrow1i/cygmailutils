@@ -1,16 +1,16 @@
 NAME="mailutils"
 VERSION=3.2
-RELEASE=3
+RELEASE=4
 
 SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
-SRC_URI+=" 3.2-missing_tests.patch"
 
 PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
 PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
 PATCH_URI+=" 0001-Fix-undefined-symbols-errors-on-Cygwin.patch"
-PATCH_URI+=" 3.2-missing_tests.patch"
 PATCH_URI+=" 3.2-mhbindir.patch"
 PATCH_URI+=" 3.2-compiler_warnings.patch"
+PATCH_URI+=" 3.2-missing_tests.patch"
+PATCH_URI+=" 3.2-skip_failing_tests.patch"
 
 HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
 SUMMARY="A rich and powerful protocol-independent mail framework"
@@ -87,7 +87,7 @@ libmailutils5_REQUIRES=libmailutils-sieve-extensions
 
 CYGCONF_ARGS="--without-guile --with-mh-bindir=/usr/libexec/mu-mh"
 
-DIFF_EXCLUDES="testsuite *.at"
+DIFF_EXCLUDES="testsuite"
 
 DEPEND="
     bison
@@ -103,10 +103,8 @@ DEPEND="
 "
 
 src_test() {
+    cd ${B}    
     # Work around testsuite problems.
-    cd ${S}
-    patch -p2 < 3.2-missing_tests.patch
-    cd ${B}
     cp -r ${S}/pop3d/testsuite/pop* pop3d/testsuite
     if [ ${ARCH} = i686 ]
     then
