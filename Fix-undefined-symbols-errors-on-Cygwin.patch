@@ -1,0 +1,60 @@
+--- origsrc/mailutils-3.2/imap4d/Makefile.am	2017-01-01 08:47:06.000000000 -0500
++++ src/mailutils-3.2/imap4d/Makefile.am	2017-08-04 11:15:39.671572600 -0400
+@@ -78,8 +78,8 @@ imap4d_LDADD = \
+  ${MU_LIB_MAILDIR}\
+  ${MU_LIB_AUTH}\
+  @MU_AUTHLIBS@ \
+- ${MU_LIB_MAILUTILS}\
+- @SERV_AUTHLIBS@ @MU_COMMON_LIBRARIES@ @MU_TCPWRAP_LIBRARIES@
++ @SERV_AUTHLIBS@ @MU_COMMON_LIBRARIES@ @MU_TCPWRAP_LIBRARIES@\
++ ${MU_LIB_MAILUTILS}
+ 
+ ## This kludge is necessary to correctly establish imap4d -> MU_AUTHLIBS
+ ## dependencies. Automake stupidly refuses to include them.
+--- origsrc/mailutils-3.2/lib/Makefile.am	2017-08-04 11:13:27.524108600 -0400
++++ src/mailutils-3.2/lib/Makefile.am	2017-08-04 11:17:48.396467500 -0400
+@@ -35,7 +35,7 @@ libmuaux_la_SOURCES = \
+  strexit.c\
+  mu_umaxtostr.c\
+  mu_umaxtostr.h
+-libmuaux_la_LIBADD=gnu/libgnu.la
++libmuaux_la_LIBADD=gnu/libgnu.la  ${MU_LIB_MAILUTILS}
+ libmuaux_la_LDFLAGS = -no-undefined -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
+ 
+ libmutcpwrap_a_SOURCES = tcpwrap.c
+--- origsrc/mailutils-3.2/maidag/Makefile.am	2017-01-01 08:47:12.000000000 -0500
++++ src/mailutils-3.2/maidag/Makefile.am	2017-08-04 11:24:51.653361600 -0400
+@@ -44,7 +44,6 @@ maidag_LDADD = \
+  ${MU_LIB_AUTH}\
+  ${MU_LIB_MAILER}\
+  @MU_AUTHLIBS@\
+- ${MU_LIB_MAILUTILS} \
+  @MU_COMMON_LIBRARIES@\
+  @LIBMU_SCM@\
+  @LIBMU_SCM_DEPS@\
+@@ -53,7 +52,8 @@ maidag_LDADD = \
+  @GUILE_LIBS@\
+  @PYTHON_LIBS@\
+  @DBMLIBS@\
+- @MU_TCPWRAP_LIBRARIES@
++ @MU_TCPWRAP_LIBRARIES@\
++ ${MU_LIB_MAILUTILS}
+ 
+ AM_CPPFLAGS = -I${top_srcdir} @MU_APP_COMMON_INCLUDES@ @GUILE_INCLUDES@ \
+  @PYTHON_INCLUDES@
+--- origsrc/mailutils-3.2/pop3d/Makefile.am	2017-01-01 08:47:14.000000000 -0500
++++ src/mailutils-3.2/pop3d/Makefile.am	2017-08-04 11:18:51.717494900 -0400
+@@ -57,11 +57,11 @@ pop3d_LDADD = \
+  ${MU_LIB_MAILDIR}\
+  ${MU_LIB_AUTH}\
+  @MU_AUTHLIBS@ \
+- ${MU_LIB_MAILUTILS}\
+  @MU_COMMON_LIBRARIES@\
+  ${LIBMU_DBM}\
+  @DBMLIBS@\
+- @MU_TCPWRAP_LIBRARIES@
++ @MU_TCPWRAP_LIBRARIES@\
++ ${MU_LIB_MAILUTILS}
+ 
+ popauth_SOURCES = popauth.c
+ popauth_LDADD = \
