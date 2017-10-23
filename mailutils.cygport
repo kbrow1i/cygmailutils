@@ -1,16 +1,17 @@
 NAME="mailutils"
-VERSION=3.2
-RELEASE=4
+VERSION=3.3
+RELEASE=1
 
 SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
+SRC_URI+=" 3.3-missing_tests.patch"
 
 PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
 PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
 PATCH_URI+=" Fix-undefined-symbols-errors-on-Cygwin.patch"
-PATCH_URI+=" 3.2-mhbindir.patch"
-PATCH_URI+=" 3.2-compiler_warnings.patch"
-PATCH_URI+=" 3.2-missing_tests.patch"
-PATCH_URI+=" 3.2-skip_failing_tests.patch"
+# PATCH_URI+=" 3.2-mhbindir.patch"
+# PATCH_URI+=" 3.2-compiler_warnings.patch"
+PATCH_URI+=" 3.3-missing_tests.patch"
+# PATCH_URI+=" 3.2-skip_failing_tests.patch"
 
 HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
 SUMMARY="A rich and powerful protocol-independent mail framework"
@@ -46,6 +47,7 @@ mailutils_pop3d_CATEGORY="Mail"
 mailutils_CONTENTS="
   --exclude=usr/bin/popauth.exe
   usr/bin/*.exe
+  usr/libexec/mailutils
   usr/share/doc
   usr/share/info
   usr/share/locale
@@ -103,8 +105,10 @@ DEPEND="
 "
 
 src_test() {
-    cd ${B}    
     # Work around testsuite problems.
+    cd ${S}
+    patch -p2 < 3.3-missing_tests.patch
+    cd ${B}
     cp -r ${S}/pop3d/testsuite/pop* pop3d/testsuite
     if [ ${ARCH} = i686 ]
     then

@@ -1,30 +1,26 @@
-x86
-===
+x86_64
+======
 
-libmailutils/tests: 586/ 586 successful
-toplevel:	     17/  17 successful
+libmailutils/tests: 615/ 615 successful
+toplevel:	     18/  18 successful
 frm/tests:	     10/  10 successful
 pop3d:		    112/ 112 successful
 imap4d/tests:	     92/  92 successful
 maidag/tests:	      1/   5 successful, 1 skipped
-mail:		     74/  94 successful, 1 unresolved
-mail/tests:           9/   9 successful
+mail:		     95/  95 successful
+mail/tests:           8/   9 successful
 sieve/tests:	     95/  96 successful
 messages/tests:	      4/   4 successful
 comsat/tests:	      7/   7 successful
 readmsg/tests: 	      6/   6 successful
-mh/tests:	    169/ 171 successful, 2 skipped
+mh/tests:	    264/ 267 successful, 2 skipped
 
-Total:	           1182/1209 successful, 3 skipped, 1 unresolved
+Total:	           1327/1336 successful, 3 skipped
 
-x86_64
-======
+x86
+===
 
-Same except passed all mail tests.
-
-Total:             1202/1209 successful, 3 skipped
-
-[Only 4 failures out of 1206 that were run.]
+Same except for mail tests, where 20 failed and 1 was unresolved.
 
 Reason for failed mail tests on x86: Some of the tests in folder.exp
 rely on the "current mailbox", which is the value of the environment
@@ -36,7 +32,7 @@ supposed to be set by the line
 in mail/testsuite/lib/mail.exp, but for some reason this doesn't work
 on x86.  If I export
 
-  MBOX=/home/kbrown/src/cygmailutils/mailutils-3.2-2.i686/build/mail/testsuite/data/spool/mbox
+  MBOX=/home/kbrown/src/cygmailutils/mailutils-3.3-1.i686/build/mail/testsuite/data/spool/mbox
 
 before running the tests, then the ones in folder.exp pass.  I still
 get failures in read.exp and z.exp that I haven't tracked down, but
@@ -47,4 +43,4 @@ usable.
 
 Reason for sieve failure: Illegal filename character?
 
-As of 2017-04-28 I've added a patch to skip the four failing tests.
+Reason for mail/tests failure: One character mismatch.
