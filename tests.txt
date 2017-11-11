@@ -13,14 +13,16 @@ sieve/tests:	     95/  96 successful
 messages/tests:	      4/   4 successful
 comsat/tests:	      7/   7 successful
 readmsg/tests: 	      6/   6 successful
-mh/tests:	    264/ 267 successful, 2 skipped
+mh/tests:	    267/ 269 successful, 2 skipped
 
-Total:	           1327/1336 successful, 3 skipped
+Total:	           1330/1338 successful, 3 skipped
 
 x86
 ===
 
-Same except for mail tests, where 20 failed and 1 was unresolved.
+Same except for mail tests, where 21 failed and 1 was unresolved, and
+mh tests, where 6 failed.  [The mh failure is new with mailutils-3.4.
+I didn't investigate.]
 
 Reason for failed mail tests on x86: Some of the tests in folder.exp
 rely on the "current mailbox", which is the value of the environment

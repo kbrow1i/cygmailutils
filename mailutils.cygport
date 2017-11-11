@@ -1,5 +1,5 @@
 NAME="mailutils"
-VERSION=3.3
+VERSION=3.4
 RELEASE=1
 
 SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
@@ -8,10 +8,8 @@ SRC_URI+=" 3.3-missing_tests.patch"
 PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
 PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
 PATCH_URI+=" Fix-undefined-symbols-errors-on-Cygwin.patch"
-# PATCH_URI+=" 3.2-mhbindir.patch"
-# PATCH_URI+=" 3.2-compiler_warnings.patch"
 PATCH_URI+=" 3.3-missing_tests.patch"
-# PATCH_URI+=" 3.2-skip_failing_tests.patch"
+PATCH_URI+=" 0001-Minor-fix-in-MH-testsuite.patch"
 
 HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
 SUMMARY="A rich and powerful protocol-independent mail framework"
@@ -87,7 +85,7 @@ mailutils_pop3d_CONTENTS="
 
 libmailutils5_REQUIRES=libmailutils-sieve-extensions
 
-CYGCONF_ARGS="--without-guile --with-mh-bindir=/usr/libexec/mu-mh"
+CYGCONF_ARGS="--without-guile --with-mh-bindir=/usr/libexec/mu-mh --disable-python"
 
 DIFF_EXCLUDES="testsuite"
 
