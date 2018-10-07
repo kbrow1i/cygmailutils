@@ -89,10 +89,14 @@ CYGCONF_ARGS="--without-guile --with-mh-bindir=/usr/libexec/mu-mh --disable-pyth
 
 DIFF_EXCLUDES="testsuite"
 
+# Removed dependency on emacs to avoid warning since the repackaging
+# of the latter; there really should be a dependency on emacs(bin),
+# which could be provided by any of emacs, emacs-X11, emacs-lucid, or
+# emacs-w32.
+
 DEPEND="
     bison
     dejagnu
-    emacs
     flex
     libcrypt-devel
     libgdbm-devel
