@@ -1,5 +1,5 @@
 NAME="mailutils"
-VERSION=3.4
+VERSION=3.5
 RELEASE=1
 
 SRC_URI="mirror://gnu/${PN}/${P}.tar.xz"
@@ -8,8 +8,8 @@ SRC_URI+=" 3.3-missing_tests.patch"
 PATCH_URI=" 0001-Enable-building-of-shared-libraries-on-Cygwin.patch"
 PATCH_URI+=" 0002-Add-library-needed-for-linking-on-Cygwin.patch"
 PATCH_URI+=" Fix-undefined-symbols-errors-on-Cygwin.patch"
-PATCH_URI+=" 3.3-missing_tests.patch"
-PATCH_URI+=" 0001-Minor-fix-in-MH-testsuite.patch"
+# PATCH_URI+=" 3.3-missing_tests.patch"
+# PATCH_URI+=" 0001-Minor-fix-in-MH-testsuite.patch"
 
 HOMEPAGE="https://www.gnu.org/software/mailutils/mailutils.html"
 SUMMARY="A rich and powerful protocol-independent mail framework"

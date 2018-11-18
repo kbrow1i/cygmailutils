@@ -211,10 +211,8 @@ index b69fbff..03516f7 100644
  libmu_pop_la_LIBADD = ${MU_LIB_AUTH} ${MU_LIB_MAILUTILS} @INTLLIBS@
  
  libmu_pop_la_SOURCES = \
-diff --git a/python/libmu_py/Makefile.am b/python/libmu_py/Makefile.am
-index af20c03..0c96304 100644
---- a/python/libmu_py/Makefile.am
-+++ b/python/libmu_py/Makefile.am
+--- a/python/2/libmu_py/Makefile.am	2018-02-10 01:06:00.000000000 -0500
++++ b/python/2/libmu_py/Makefile.am	2018-11-18 18:05:27.349230700 -0500
 @@ -44,7 +44,7 @@ libmu_py_la_SOURCES = \
   registrar.c \
   url.c \
@@ -224,6 +222,14 @@ index af20c03..0c96304 100644
   -export-symbols-regex '^(mu_py_|Py).*' \
   -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
  libmu_py_la_LIBADD = $(PYTHON_LIBS) @MU_COMMON_LIBRARIES@ \
--- 
-2.8.3
-
+--- a/python/3/libmu_py/Makefile.am	2018-07-27 10:26:31.000000000 -0400
++++ b/python/3/libmu_py/Makefile.am	2018-11-18 18:06:01.223701700 -0500
+@@ -44,7 +44,7 @@ libmu_py_la_SOURCES = \
+  registrar.c \
+  url.c \
+  util.c
+-libmu_py_la_LDFLAGS = -rpath $(libdir) \
++libmu_py_la_LDFLAGS = -no-undefined -rpath $(libdir) \
+  -export-symbols-regex '^(mu_py_|Py).*' \
+  -version-info @VI_CURRENT@:@VI_REVISION@:@VI_AGE@
+ libmu_py_la_LIBADD = $(PYTHON_LIBS) @MU_COMMON_LIBRARIES@ \
