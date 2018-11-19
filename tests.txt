@@ -1,33 +1,30 @@
 x86_64
 ======
 
-libmailutils/tests: 615/ 615 successful
-toplevel:	     18/  18 successful
+libmailutils/tests: 656/ 656 successful
+toplevel:	     19/  19 successful
 frm/tests:	     10/  10 successful
 pop3d:		    112/ 112 successful
 imap4d/tests:	     92/  92 successful
 maidag/tests:	      1/   5 successful, 1 skipped
 mail:		     95/  95 successful
-mail/tests:           8/   9 successful
-sieve/tests:	     95/  96 successful
+mail/tests:          11/  11 successful
+sieve/tests:	     96/  97 successful
 messages/tests:	      4/   4 successful
 comsat/tests:	      7/   7 successful
 readmsg/tests: 	      6/   6 successful
 mh/tests:	    267/ 269 successful, 2 skipped
-
-Total:	           1330/1338 successful, 3 skipped
+mimeview/tests:      21/  21 successful
 
 x86
 ===
 
-Same except for mail tests, where 21 failed and 1 was unresolved, and
-mh tests, where 6 failed.  [The mh failure is new with mailutils-3.4.
-I didn't investigate.]
+Same except for mail tests, where 20 failed and 1 was unresolved.
 
-Reason for failed mail tests on x86: Some of the tests in folder.exp
-rely on the "current mailbox", which is the value of the environment
-variable MBOX.  If this isn't set, it defaults to ~/mbox.  It's
-supposed to be set by the line
+Reason for failed mail tests on x86 [for mailutils-3.3]: Some of the
+tests in folder.exp rely on the "current mailbox", which is the value
+of the environment variable MBOX.  If this isn't set, it defaults to
+~/mbox.  It's supposed to be set by the line
 
   set env(MBOX) "$MU_SPOOL_DIR/mbox"
 
@@ -44,5 +41,3 @@ Reason for maidag failures: No root user.  I don't know if maidag is
 usable.
 
 Reason for sieve failure: Illegal filename character?
-
-Reason for mail/tests failure: One character mismatch.
