@@ -1,19 +1,20 @@
-From cygwin-announce-mailutils-3.2-3 Thu Apr 27 08:44:40 2017
+From cygwin-announce-mailutils-3.5-1 Mon Nov 19 09:12:04 2018
 From: Ken Brown <kbrown@cornell.edu>
 To: cygwin-announce@cygwin.com
-Date: Thu, 27 Apr 2017 08:44:40 -0400
-Subject: mailutils 3.2-3
+Date: Mon, 19 Nov 2018 09:12:04 -0500
+Message-Id: <20181119091204.43468-1-kbrown@cornell.edu>
+Subject: mailutils 3.5-1
 
 The following packages have been uploaded to the Cygwin distribution:
 
-* mailutils-3.2-3
-* libmailutils5-3.2-3
-* libmailutils-sieve-extensions-3.2-3
-* libmailutils-devel-3.2-3
-* mailutils-mh-3.2-3
-* mailutils-comsatd-3.2-3
-* mailutils-imap4d-3.2-3
-* mailutils-pop3d-3.2-3
+* mailutils-3.5-1
+* libmailutils5-3.5-1
+* libmailutils-sieve-extensions-3.5-1
+* libmailutils-devel-3.5-1
+* mailutils-mh-3.5-1
+* mailutils-comsatd-3.5-1
+* mailutils-imap4d-3.5-1
+* mailutils-pop3d-3.5-1
 
 GNU Mailutils is a rich and powerful protocol-independent mail
 framework.  It contains a series of useful mail libraries, clients,
@@ -24,16 +25,12 @@ this project contains a POP3 server, an IMAP4 server, and a Sieve mail
 filter.  It also provides a POSIX mailx client, and a collection of
 other handy tools.
 
-This release fixes build errors that could cause some of the programs
-to fail.  All but 4 of the 1200 tests in the test suite now pass.
+This is an update to the latest upstream release.
 
 These packages contain two things of possible use to Emacs users:
 
 1. The mailutils package provides a utility /usr/bin/movemail.exe that
-   Emacs's Rmail library uses.  If mailutils is not installed then
-   Emacs will instead use its own version of this utility (installed
-   under /usr/libexec/emacs), which has fewer features and is less
-   secure.
+   Emacs's Rmail library uses.
 
 2. The mailutils-mh package can be used by Emacs's MH-E library.  If
    you want to use this, put the line
